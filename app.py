@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, abort
 
 from linebot import (
@@ -12,12 +13,14 @@ from linebot.models import (
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi('Y8NMrFY8XL54mj3LrCpX74STMuxM5VvL5e3Qn1CTLNr9nZhdcb/8ctXpLxYYp9mHY3o2jr54XsGOvT2Fh3tiOVNl8naeqfC8z4akLJgd1VvYMGIhqvd14In2bLO+K/2ndq/thCIC43wBWM0IILcogwdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('c37e030ae05bd31968ec24b6137a5fd4')
+line_bot_api = LineBotApi(os.environ.get("ACCESS_TOKEN"))
+handler = WebhookHandler(os.environ.get("SECRET"))
 
 
-@app.route("/callback", methods=['POST'])
+@app.route("/callback", methods=['POST','GET'])
 def callback():
+    if request.method == "GET":
+        return ox.environ.get("SECRET")
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
