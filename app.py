@@ -13,14 +13,14 @@ from linebot.models import (
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi(os.environ.get("ACCESS_TOKEN"))
-handler = WebhookHandler(os.environ.get("SECRET"))
+line_bot_api = LineBotApi(str(os.environ.get("ACCESS_TOKEN")))
+handler = WebhookHandler(str(os.environ.get("SECRET")))
 
 
 @app.route("/callback", methods=['POST','GET'])
 def callback():
     if request.method == "GET":
-        return ox.environ.get("SECRET")
+        return str(os.environ.get("SECRET"))
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
