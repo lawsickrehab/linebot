@@ -8,7 +8,11 @@ from linebot.models import *
 
 @handler.default()
 def default(event):
-    print(event)
+    ret="This type of event is not defined yet. Please contact the developer.\n\n"+str(event)
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=ret))
+    
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -34,7 +38,7 @@ def handle_image(event):
         TextSendMessage(text="We can response many times"))
 
 @handler.add(MessageEvent, message=VideoMessage)
-def hendle_video(event):
+def handle_video(event):
     url="https://animecorner.me/wp-content/uploads/2022/05/Spy-x-family-06-31.png"
 
     line_bot_api.reply_message(
@@ -45,5 +49,9 @@ def hendle_video(event):
         
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location(event):
-    line_bot_api.broadcast(TextSendMessage(text="broadcast test"))
+    uid=event.source.user_id
+    profile=line_bot_api.get_profile(uid)
+    name=profile.display_name
+    ret=name+"sent a test boadcast message, notification off."
+    line_bot_api.broadcast(TextSendMessage(text=ret),notification_disabled=True)
 

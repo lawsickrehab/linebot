@@ -53,5 +53,6 @@ def callback():
 
 if __name__ == "__main__":
     PORT=int(str(os.environ.get("PORT")))
+    assert PORT, "PORT not set" 
     certDir='../../crt/'
-    app.run(host='0.0.0.0',port=PORT,ssl_context=(certDir+'tonych.me.chained.crt',certDir+'private.key'),debug=True)
+    app.run(host='0.0.0.0',port=PORT,ssl_context=(certDir+'tonych.me.chained.crt',certDir+'private.key'),debug=False)
