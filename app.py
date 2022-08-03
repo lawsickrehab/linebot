@@ -50,4 +50,5 @@ def handle_message(event):
 
 if __name__ == "__main__":
     PORT=int(str(os.environ.get("PORT")))
-    app.run(host='0.0.0.0',port=PORT)
+    certDir='../../crt/'
+    app.run(host='0.0.0.0',port=PORT,ssl_context=(certDir+'tonych.me.chained.crt',certDir+'private.key'))
