@@ -1,3 +1,5 @@
+import json
+
 from __main__ import handler,line_bot_api
 
 from linebot.models import (
@@ -55,3 +57,11 @@ def handle_location(event):
     ret=name+"sent a test boadcast message, notification off."
     line_bot_api.broadcast(TextSendMessage(text=ret),notification_disabled=True)
 
+
+@handler.add(MessageEvent, message=StickerMessage)
+def handle_sticker(event):
+    with open('tmp.json') as f:
+        fm=json.load(f)
+    line_bot_api.reply_message(
+        event.reply_token,
+        FlexSendMessage(alt_text='hello',contents=fm))
