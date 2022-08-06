@@ -12,7 +12,7 @@ from linebot.models import *
 
 from misc.fileHandler import *
 
-def save(event):
+def saveEventFile(event):
     uid=event.source.user_id
     mid=event.message.id
     FileHandler.driver(uid,mid,requestFile(mid).text)
@@ -33,14 +33,7 @@ def handle_message(event):
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image(event):
-
-    uid=event.source.user_id
-    profile=line_bot_api.get_profile(uid)
-    name=profile.display_name
-    url=profile.picture_url
-
-    mid=event.message.id
-    save(event)
+    saveEventFile(event)
     return
 
     ret=name+" your ID is \""+uid+"\", and your profile picture is at "+url
@@ -51,12 +44,24 @@ def handle_image(event):
 
 @handler.add(MessageEvent, message=VideoMessage)
 def handle_video(event):
+    saveEventFile(event)
+    return
     uid=event.source.user_id
     mid=event.message.id
     line_bot_api.reply_message(
         event.reply_token,
         ImageSendMessage(original_content_url=url,preview_image_url=url))
     print(requestFile(mid))
+
+@handler.add(MessageEvent, message=AudioMessage)
+def handle_audio(event):
+    saveEventFile(event)
+    return
+
+@handler.add(MessageEvent, message=FileMessage)
+def handle_file(event):
+    saveEventFile(event)
+    return
         
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location(event):
