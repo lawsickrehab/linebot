@@ -13,7 +13,7 @@ class FileHandler:
         if os.path.isfile(f"asset/{UID}.tar"):
             os.system(f"rm asset/{UID}.tar")
         os.system(f"tar cfv asset/{UID}.tar asset/{UID}")
-        os.system(f"rm -r asset/")
+        os.system(f"rm -r asset/{UID}")
     
     def addFile(UID, MID, content):
         with open(f"asset/{UID}/{MID}", "w+", encoding="UTF-8") as ofs:
