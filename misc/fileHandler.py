@@ -6,7 +6,8 @@ class FileHandler:
     def checkAsset():
         if os.path.isdir(f"asset") == False:
             os.mkdir("asset")
-    def unzip(UID):
+    def unzip(param):
+        UID = param.get('UID', '')
         os.chdir(f"asset")
         os.mkdir(f"{UID}")
         if os.path.isfile(f"{UID}.tar"):
@@ -19,7 +20,8 @@ class FileHandler:
             os.chdir("..")
         os.chdir("..")
 
-    def zip(UID, MID):
+    def zip(param):
+        UID = param.get('UID', '')
         if os.path.isfile(f"asset/{UID}.tar"):
             os.system(f"rm asset/{UID}.tar")
         os.chdir(f"asset/{UID}")
@@ -31,15 +33,36 @@ class FileHandler:
         os.chdir("..")
         os.system(f"rm -r asset/{UID}")
     
-    def addFile(UID, MID, content):
+    def get(param):
+        UID = param.get('UID', '')
+        MIDS = os.listdir(f'asset/{UID}')
+        ret = {}
+        for MID in MIDS:
+            with open(f"asset/{UID}/{MID}", "r", encoding="UTF-8") as ifs:
+                ret[MID] = ifs.read()
+        return ret
+    
+    def post(param):
+        UID = param.get('UID', '')
+        MID = param.get('MID', '')
+        content = param.get('content', '')
         with open(f"asset/{UID}/{MID}", "w+", encoding="UTF-8") as ofs:
             ofs.write(content)
+        return "Success"
     
-    def driver(UID, MID, content):
+    def view(Method, param):
         FileHandler.checkAsset()
-        FileHandler.unzip(UID)
-        content = "test"
-        FileHandler.addFile(UID, MID, content)
-        FileHandler.zip(UID, MID)
+        FileHandler.unzip(param)
+        if Method == "GET":
+            res = FileHandler.get(param)
+        elif Method == "POST":
+            res = FileHandler.post(param)
+        print(res)
+        FileHandler.zip(param)
 
-FileHandler.driver(2, 5, "")
+param = {
+    'UID': 1,
+    'MID': 8,
+    'content': 'test8'
+}
+FileHandler.view("GET", param)
