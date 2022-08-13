@@ -10,7 +10,9 @@ from linebot.models import (
 
 from linebot.models import *
 
-from misc.fileHandler import *
+# from misc.fileHandler import *
+from misc.session import Session
+from routers.logic import react
 
 def saveEventFile(event):
     uid=event.source.user_id
@@ -26,10 +28,24 @@ def default(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    uid=event.source.user_id
+    us=Session(uid)
+    content=event.message.text
+    if content=='delete': # no space
+        us.clear()
+    else:
+        us.push_back(event.message.text)
+    print(us.read())
+    type,act=react(us.read())
+    if type=="FLEX":
+        line_bot_api.reply_message(
+            event.reply_token,
+            FlexSendMessage(alt_text="Flex Message Error!",contents=act))
+    elif type=="TEXT":
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=act))
     return
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text))
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image(event):
