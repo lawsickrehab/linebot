@@ -33,6 +33,10 @@ def handle_message(event):
     content=event.message.text
     if content=='delete': # no space
         us.clear()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="History deleted!"))
+        return
     else:
         us.push_back(event.message.text)
     print(us.read())
