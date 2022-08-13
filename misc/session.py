@@ -2,11 +2,11 @@ import csv
 import os
 from pathlib import Path
 
-class session:
-    def __init__(self,_uid):
+class Session:
+    def __init__(self,_uid,_sid='s1.csv'):
         self.sdir='sessions/'
         self.uid=_uid
-        self.sid='s1.csv'
+        self.sid=_sid
 
         self.sd=os.path.join(self.sdir,self.uid)
         self.ss=os.path.join(self.sdir,self.uid,self.sid)
@@ -25,14 +25,12 @@ class session:
         os.chdir("..")
         os.chdir("..")
         
-    
     def tdir(self,dname):
         if not os.path.isdir(dname):
             os.mkdir(dname)
 
     def get(self,uid):
         pass
-        
 
     def read(self):
         ret=[]
@@ -51,5 +49,14 @@ class session:
         cur=self.read()
         cur.extend([data])
         self.write(cur)
+    
+    def clear(self):
+        self.write([])
             
-        
+    def new(self,sname):
+        pass
+    
+    def ls(self):
+        pass
+
+    
