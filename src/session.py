@@ -4,7 +4,7 @@ from pathlib import Path
 
 class Session:
     def __init__(self,_uid,_sid='s1.csv'):
-        self.sdir='sessions/'
+        self.sdir='session/'
         self.uid=_uid
         self.sid=_sid
 
@@ -49,6 +49,9 @@ class Session:
         cur=self.read()
         cur.extend([data])
         self.write(cur)
+    
+    def zip(self):
+        return
     
     def clear(self):
         self.write([])

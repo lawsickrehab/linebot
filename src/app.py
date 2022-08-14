@@ -24,8 +24,9 @@ assert SECRET, "SECRET not set"
 line_bot_api = LineBotApi(ACCESS_TOKEN)
 handler = WebhookHandler(SECRET)
 
-from routers.types import *
-from utils import *
+from text import *
+# from routers.others import *
+# from utils import *
 
 @app.route("/")
 def index():
