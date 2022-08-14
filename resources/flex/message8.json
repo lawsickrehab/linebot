@@ -1,0 +1,22 @@
+{
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "他是否是以強暴犯犯之？",
+            "weight": "bold",
+            "color": "#000000"
+          }
+        ]
+      }
+    ],
+    "backgroundColor": "#6ee688"
+  }
+}

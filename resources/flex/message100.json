@@ -1,0 +1,71 @@
+{
+  "type": "bubble",
+  "size": "mega",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "對方的這項行為有可能觸犯",
+            "color": "#000000"
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [],
+        "height": "10px"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "中華民國刑法第 309 條公然侮辱罪",
+            "weight": "bold",
+            "action": {
+              "type": "uri",
+              "label": "action",
+              "uri": "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=C0000001&flno=309"
+            }
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [],
+        "height": "10px"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "請蒐集/上傳",
+            "color": "#000000"
+          },
+          {
+            "type": "text",
+            "text": "包含公然辱罵的字眼(需證明為包",
+            "color": "#000000"
+          },
+          {
+            "type": "text",
+            "color": "#000000",
+            "text": "含三人或不特定人之場合)照片"
+          }
+        ]
+      }
+    ],
+    "backgroundColor": "#6ee688"
+  }
+}

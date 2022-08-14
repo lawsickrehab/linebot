@@ -1,0 +1,22 @@
+{
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "他講的話是不是對你的名譽造成負面影響？",
+            "weight": "bold",
+            "color": "#000000"
+          }
+        ]
+      }
+    ],
+    "backgroundColor": "#6ee688"
+  }
+}

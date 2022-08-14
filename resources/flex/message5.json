@@ -1,0 +1,22 @@
+{
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "請問他說的話是事實嗎？",
+            "weight": "bold",
+            "color": "#000000"
+          }
+        ]
+      }
+    ],
+    "backgroundColor": "#6ee688"
+  }
+}

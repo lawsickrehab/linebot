@@ -1,0 +1,2 @@
+File name must end with ".txt"
+Then call the `Message.text()` function with file name in resources/text

@@ -1,0 +1,60 @@
+[
+  {
+    "type": "bubble",
+    "body": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "是",
+            "color": "#ffffff",
+            "align": "center",
+            "weight": "bold",
+            "adjustMode": "shrink-to-fit",
+            "action": {
+              "type": "message",
+              "label": "是",
+              "text": "是"
+            }
+          }
+        ]
+      }
+      ],
+      "backgroundColor": "#2a00e5"
+    }
+  },
+  {
+    "type": "bubble",
+    "body": {
+    "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "否",
+                "weight": "bold",
+                "align": "center",
+                "color": "#ffffff",
+                "adjustMode": "shrink-to-fit",
+                "action": {
+                  "type": "message",
+                  "label": "否",
+                  "text": "否"
+                }
+              }
+            ]
+          }
+        ],
+        "backgroundColor": "#f11111"
+      }
+  }
+]
