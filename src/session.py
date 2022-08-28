@@ -1,5 +1,6 @@
 import csv
 import os
+import json
 from pathlib import Path
 
 class Session:
@@ -32,7 +33,7 @@ class Session:
     def get(self,uid):
         pass
 
-    def read(self):
+    def readcsv(self):
         ret=[]
         with open(self.ss,'r') as csvfile:
             scsv=csv.reader(csvfile)
@@ -40,21 +41,30 @@ class Session:
                 ret.extend(i)
         return ret
 
-    def write(self,lst):
+    def writecsv(self,lst):
         with open(self.ss,'w') as csvfile:
             scsv=csv.writer(csvfile)
             scsv.writerow(lst)
 
+    def readjson(self):
+        with open(self.ss,'r') as jsonfile:
+            contents=json.load(jsonfile)
+        return contents
+
+    def writejson(self,dic):
+        with open(self.ss,'w') as jsonfile:
+            json.dump(dic,jsonfile)
+
     def push_back(self,data):
-        cur=self.read()
+        cur=self.readcsv()
         cur.extend([data])
-        self.write(cur)
+        self.writecsv(cur)
     
     def zip(self):
         return
     
     def clear(self):
-        self.write([])
+        self.writecsv([])
             
     def new(self,sname):
         pass

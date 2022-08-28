@@ -1,6 +1,13 @@
 from message import Message
+from session import Session
 
-def react(lst):
+def react(lst,nlp):
+    if len(lst)==1:
+        # call nlp api by lst[0]
+        ans={"test":"dictionary returned by nlp api, save it!"}
+        nlp.writejson(ans)
+    nlp=nlp.readjson()
+    print(lst,nlp)
     ret=Message()
     return ret.text("tmp.txt")
     

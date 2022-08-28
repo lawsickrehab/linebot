@@ -4,7 +4,8 @@ from logic import react,welcome
 
 def txtio(event):
     uid=event.source.user_id
-    session=Session(uid)
+    session=Session(uid,"s1.csv")
+    nlp=Session(uid,"nlp.csv")
     txt=event.message.text
     if txt=='刪光光':
         session.clear()
@@ -14,7 +15,7 @@ def txtio(event):
         return welcome() 
     elif txt=='歷史紀錄':
         ret=Message()
-        hist=session.read()
+        hist=session.readcsv()
         if not len(hist):
             return ret.text("History empty!")
         msg='\n'.join(hist)
@@ -22,8 +23,10 @@ def txtio(event):
     else:
         session.push_back(txt)
 
-    act=react(session.read())
+    act=react(session.readcsv(),nlp)
     return act
+
+
     if act['type']=="FLEX":
         if 'qr' in act:
             line_bot_api.reply_message(
