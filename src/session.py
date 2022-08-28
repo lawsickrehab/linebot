@@ -10,10 +10,10 @@ class Session:
         self.sid=_sid
 
         self.sd=os.path.join(self.sdir,self.uid)
-        self.ss=os.path.join(self.sdir,self.uid,self.sid)
+        self.sf=os.path.join(self.sdir,self.uid,self.sid)
 
         os.makedirs(self.sd,exist_ok=True)
-        Path(self.ss).touch()
+        Path(self.sf).touch()
         return
 
 
@@ -35,24 +35,24 @@ class Session:
 
     def readcsv(self):
         ret=[]
-        with open(self.ss,'r') as csvfile:
+        with open(self.sf,'r') as csvfile:
             scsv=csv.reader(csvfile)
             for i in scsv:
                 ret.extend(i)
         return ret
 
     def writecsv(self,lst):
-        with open(self.ss,'w') as csvfile:
+        with open(self.sf,'w') as csvfile:
             scsv=csv.writer(csvfile)
             scsv.writerow(lst)
 
     def readjson(self):
-        with open(self.ss,'r') as jsonfile:
+        with open(self.sf,'r') as jsonfile:
             contents=json.load(jsonfile)
         return contents
 
     def writejson(self,dic):
-        with open(self.ss,'w') as jsonfile:
+        with open(self.sf,'w') as jsonfile:
             json.dump(dic,jsonfile)
 
     def push_back(self,data):
