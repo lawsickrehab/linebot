@@ -5,7 +5,7 @@ from logic import react,welcome
 def txtio(event):
     uid=event.source.user_id
     session=Session(uid,"s1.csv")
-    nlp=Session(uid,"nlp.csv")
+    nlp=Session(uid,"nlp.json")
     txt=event.message.text
     if txt=='刪光光':
         session.clear()

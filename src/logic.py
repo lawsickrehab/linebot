@@ -1,6 +1,7 @@
 from message import Message
 from session import Session
 from question import Question
+from content import Content
 
 def react(lst,nlp):
     if len(lst)==1:
@@ -38,13 +39,14 @@ def dfs(cur,path):
         4:1,
         8:0
     }
-    q=Question(cur)
     if cur not in path.keys():
-        return q
+        return Content(cur).ask()
     if path[cur]<0:
         print("dfs finished, got negtive answer.")
         ret=Message()
         return ret.text("tmp.text")
+    print(cur)
+    q=Question(cur)
     assert path[cur]<q.size, "answer out of range"
     print("question",cur,"answered, moved on next question:", q.judge[path[cur]])
     return dfs(q.judge[path[cur]],path)

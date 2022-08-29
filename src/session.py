@@ -47,6 +47,8 @@ class Session:
             scsv.writerow(lst)
 
     def readjson(self):
+        if os.stat(self.sf).st_size==0:
+            return dict()
         with open(self.sf,'r') as jsonfile:
             contents=json.load(jsonfile)
         return contents
