@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+form * {
+  display: block;
+  margin: 10px;
+}
+</style>
+<script language="Javascript" >
+function download(filename, text) {
+  var pom = document.createElement('a');
+  pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+
+    pom.style.display = 'none';
+    document.body.appendChild(pom);
+
+    pom.click();
+
+    document.body.removeChild(pom);
+  }
+</script>
+</head>
+</html>
+<body>
+  <p id="checkJS">Please Enable Javascript to use this app</p>
+  <script>
+    document.getElementById("checkJS").innerHTML = "JavaScript Enabled!";
+  </script>
+  <p>
+    Question ID:
+    <input id="id" type="text">
+  </p>
+  <p>
+    Question content:
+    <input id="question" type="text">
+  </p>
+  <input type="hidden" value="0" id="selection_num">
+  <p> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <p>
+      Options:
+      <button class="add_option">Add</button>
+      <button class="remove_option">remove</button>
+      <p>Selection<span style="padding-left: 120px"></span>Jump to question ID</p>
+    </p>
+    <div id="new_selection"></div>
+    <br />
+    <script>
+      $('.add_option').on('click', add_option);
+      $('.remove_option').on('click', remove_option);
+
+      function add_option() {
+        var new_selection_no = parseInt($('#selection_num').val());
+        var new_option = "<input type='text' id='option_" + new_selection_no + "'placeholder='option_" + new_selection_no + "'>";
+        var new_judge = "<input type='text' id='judge_" + new_selection_no + "'>";
+        var new_br = "<br id='br_option_" + new_selection_no + "'>";
+
+        $('#new_selection').append(new_option);
+        $('#new_selection').append(new_judge);
+        $('#new_selection').append(new_br);
+
+        $('#selection_num').val(new_selection_no + 1);
+      }
+
+      function remove_option() {
+        var last_selection_no = $('#selection_num').val() - 1;
+
+        if (last_selection_no >= 0) {
+          $('#option_' + last_selection_no).remove();
+          $('#judge_' + last_selection_no).remove();
+          $('#br_option_' + last_selection_no).remove();
+          $('#selection_num').val(last_selection_no);
+        }
+      }
+    </script>
+  </p>
+  <p>
+    For exception jump to question id: 
+    <input id="exception" type="text">
+  </p>
+  <input type="hidden" value="0" id="key_num">
+  <p> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <p>
+      Key:
+      <button class="add_key">Add</button>
+      <button class="remove_key">remove</button>
+    </p>
+    <div id="new_keys"></div>
+    <script>
+      $('.add_key').on('click', add_key);
+      $('.remove_key').on('click', remove_key);
+
+      function add_key() {
+        var new_key_no = parseInt($('#key_num').val());
+        var new_key = "<input type='text' id='key_" + new_key_no + "'placeholder='key_" + new_key_no + "'>";
+        var new_br = "<br id='br_key_" + new_key_no + "'>";
+
+        $('#new_keys').append(new_key);
+        $('#new_keys').append(new_br);
+
+        $('#key_num').val(new_key_no + 1);
+      }
+
+      function remove_key() {
+        var last_key_no = $('#key_num').val() - 1;
+
+        if (last_key_no >= 0) {
+          $('#key_' + last_key_no).remove();
+          $('#br_key_' + last_key_no).remove();
+          $('#key_num').val(last_key_no);
+        }
+      }
+    </script>
+  </p>
+  
+  <button onclick="show()">Generate</button>
+  <script>
+    function show(){
+      showFilename();
+      showContent();
+    }
+    function showFilename(){
+      var id = $('#id').val();
+      str = `${id}.json`;
+      document.getElementById("outputFilename").value = str;
+    }
+    function showContent(){
+      var id = $('#id').val();
+      var idLine = `  "id": ${id},\n`;
+      var question = $('#question').val();
+      var questionLine = `  "question": "${question}",\n`;
+      var exception = $('#exception').val();
+        if(exception === ""){
+          exception = "-" + id;
+        }
+      var exceptionLine = `  "exception": ${exception},\n`;
+
+      var selection_num = parseInt($('#selection_num').val());
+
+      var optionsLine = `  "options": [\n`;
+      for (var i = 0; i < selection_num; i++) {
+        var option = $(`#option_${i}`).val();
+        optionsLine += `    "${option}"`;
+        if(i != selection_num - 1){
+          optionsLine += `,`;
+        }
+        optionsLine += `\n`;
+      }
+      optionsLine += "  ],\n";
+      
+      var judgeLine = `  "judge": [\n`;
+      for (var i = 0; i < selection_num; i++) {
+        var judge = $(`#judge_${i}`).val();
+        if(judge === ""){
+          judge = "-" + id;
+        }
+        judgeLine += `    ${judge}`;
+        if(i != selection_num - 1){
+          judgeLine += `,`;
+        }
+        judgeLine += `\n`;
+      }
+      judgeLine += "  ],\n";
+
+      var key_num = parseInt($('#key_num').val());
+
+      var keyLine = `  "key": [\n`;
+      for (var i = 0; i < key_num; i++) {
+        var key = $(`#key_${i}`).val();
+        keyLine += `    "${key}"`;
+        if(i != key_num - 1){
+          keyLine += `,`;
+        }
+        keyLine += `\n`;
+      }
+      keyLine += "  ]\n";
+
+      str = `{\n${idLine}${questionLine}${optionsLine}${judgeLine}${exceptionLine}${keyLine}}\n`;
+      document.getElementById("outputContent").innerHTML = str;
+    }
+  </script>
+  
+  <form onsubmit="download(this['name'].value, this['text'].value)">
+    <input type="text" id="outputFilename" name="name">
+    <textarea rows=20 cols=50 id="outputContent" name="text"></textarea>
+    <input type="submit" value="Download">
+  </form>
+</body>
