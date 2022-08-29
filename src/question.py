@@ -7,7 +7,11 @@ class Question:
         self.id=raw['id']
         self.question=raw['question']
         self.options=raw['options']
+        self.judge=raw['judge']
+        self.exception=raw['exception']
         self.key=raw['key']
+        assert(len(self.judge)==len(self.options))
+        self.size=len(self.judge)
         
 
     def read_json(self,fname):

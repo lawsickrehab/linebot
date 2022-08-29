@@ -1,5 +1,6 @@
 from message import Message
 from session import Session
+from question import Question
 
 def react(lst,nlp):
     if len(lst)==1:
@@ -8,6 +9,9 @@ def react(lst,nlp):
         nlp.writejson(ans)
     nlp=nlp.readjson()
     print(lst,nlp)
+
+    return dfs(1,nlp)
+
     ret=Message()
     return ret.text("tmp.txt")
     
@@ -26,6 +30,25 @@ def react(lst,nlp):
     # return ret.text('test message')
     # return ret.flexqr('message8.json','tf2.json')
     return ret.text('')
+
+def dfs(cur,path):
+    path={
+        1:0,
+        3:0,
+        4:1,
+        8:0
+    }
+    q=Question(cur)
+    if cur not in path.keys():
+        return q
+    if path[cur]<0:
+        print("dfs finished, got negtive answer.")
+        ret=Message()
+        return ret.text("tmp.text")
+    assert path[cur]<q.size, "answer out of range"
+    print("question",cur,"answered, moved on next question:", q.judge[path[cur]])
+    return dfs(q.judge[path[cur]],path)
+
 
 def welcome():
     ret=Message()
