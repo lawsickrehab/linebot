@@ -1,0 +1,17 @@
+{
+  "id": 4,
+  "question": "testbench: terminate question",
+  "options": [
+    "terminate",
+    "continue"
+  ],
+  "judge": [
+    -4,
+    5
+  ],
+  "exception": -4,
+  "key": [
+    "Key1",
+    "Key2"
+  ]
+}
