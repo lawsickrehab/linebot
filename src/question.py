@@ -12,6 +12,7 @@ class Question:
         self.key=raw['key']
         assert(len(self.judge)==len(self.options))
         self.size=len(self.judge)
+        self.short=raw.get('short',"short question not given")
         
 
     def read_json(self,fname):

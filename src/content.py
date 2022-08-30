@@ -28,3 +28,9 @@ class Content:
 
     def button(self,lbl,txt):
         return QuickReplyButton(action=MessageAction(label=lbl,text=txt))
+
+    def history(self,ans):
+        out=""
+        for qid,rep in ans.items():
+            out+=Question(qid).short+"："+rep+"\n"
+        return TextSendMessage(text=out[:-1])
