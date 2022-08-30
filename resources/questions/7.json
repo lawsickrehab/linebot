@@ -1,15 +1,15 @@
 {
   "id": 7,
-  "question": "idk",
+  "question": "是侵入住宅、有人居住之建築物、船艦或隱匿其內犯之？",
   "options": [
-    "next",
-    "end"
+    "是",
+    "否"
   ],
   "judge": [
     8,
-    -7
+    8
   ],
-  "exception": -7,
+  "exception": 8,
   "key": [
     "Key1"
   ]

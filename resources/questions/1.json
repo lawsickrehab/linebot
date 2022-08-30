@@ -1,13 +1,11 @@
 {
   "id": 1,
-  "question": "Test Question 1",
+  "question": "請問行為人是否有以強爆、脅迫、恐嚇、催眠術或其他違反您意願的方法為之？",
   "options": [
-    "Selection 1",
-    "Selection 2",
-    "Selection 3"
+    "有",
+    "沒有"
   ],
   "judge": [
-    2,
     2,
     2
   ],

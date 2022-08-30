@@ -23,15 +23,13 @@ def react(lst,nlp):
     print(lst,nlp)
     ask=dfs(init,nlp)
     if ask<0:
-        return Message().text("terminate.txt")
+        return Message().text("ans.txt")
     return Content().ask(ask,definition=True)
 
 def dfs(cur,path):
     if cur not in path.keys():
         return cur
     q=Question(cur)
-    if path[cur][0:len(ASK_DEF)]==ASK_DEF:
-        return cur
     try:
         ans=q.options.index(path[cur])
         nxt=q.judge[ans]
