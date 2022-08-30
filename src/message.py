@@ -15,7 +15,7 @@ class Message:
     def read_txt(fname):
         with open(fname,'r') as tfile:
             contents=tfile.read()
-        return contents
+        return contents[:-1]
 
     def text(self,contents):
         if contents[-4:]==".txt":
