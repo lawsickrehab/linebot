@@ -7,24 +7,30 @@ from nlp import NLP
 
 from content import ASK_DEF,UNDERSTAND,UNUNDERSTAND
 
+init=1
+
 def react(lst,nlp):
-    if len(lst)==1:
-        ans=NLP().parse(lst[0],[])
-        nlp.writejson(ans)
-    nlp=nlp.readjson()
-    init=1
-    for i,ans in enumerate(lst):
-        if not i:
-            continue
-        nxt=dfs(init,nlp)
-        if nxt<0:
-            return Message().text("closed.txt")
-        nlp[nxt]=ans
-    print(lst,nlp)
-    ask=dfs(init,nlp)
+    ans=gen(lst,nlp)
+    print(lst,ans)
+    ask=dfs(init,ans)
     if ask<0:
         return Message().text("ans.txt")
     return Content().ask(ask,definition=True)
+
+def gen(lst,nlp):
+    if len(lst)==1:
+        ans=NLP().parse(lst[0],[])
+        nlp.writejson(ans)
+    ans=nlp.readjson()
+    for i,rep in enumerate(lst):
+        if not i:
+            continue
+        nxt=dfs(init,ans)
+        assert nxt>0
+        ans[nxt]=rep
+    return ans
+
+    
 
 def dfs(cur,path):
     if cur not in path.keys():

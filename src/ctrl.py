@@ -1,6 +1,6 @@
 from session import Session
 from message import Message
-from logic import react,welcome
+from logic import react,welcome,gen
 from content import Content
 from content import ASK_DEF,UNDERSTAND,UNUNDERSTAND
 
@@ -16,6 +16,9 @@ def txtio(event):
     elif txt=='幫助':
         return welcome() 
     elif txt=='歷史紀錄':
+        hist=session.readcsv()
+        ans=gen(hist,nlp)
+        return Content().history(ans)
         ret=Message()
         hist=session.readcsv()
         if not len(hist):
