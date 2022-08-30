@@ -43,18 +43,16 @@ function download(filename, text) {
       Options:
       <button class="add_option">Add</button>
       <button class="remove_option">remove</button>
-      <p>Selection<span style="padding-left: 120px"></span>Jump to question ID</p>
     </p>
     <div id="new_selection"></div>
-    <br />
     <script>
       $('.add_option').on('click', add_option);
       $('.remove_option').on('click', remove_option);
 
       function add_option() {
         var new_selection_no = parseInt($('#selection_num').val());
-        var new_option = "<input type='text' id='option_" + new_selection_no + "'placeholder='option_" + new_selection_no + "'>";
-        var new_judge = "<input type='text' id='judge_" + new_selection_no + "'>";
+        var new_option = "<input type='text' id='option_" + new_selection_no + "'placeholder='option " + new_selection_no + "'>";
+        var new_judge = "<input type='text' id='judge_" + new_selection_no + "'placeholder='ID of next question'>";
         var new_br = "<br id='br_option_" + new_selection_no + "'>";
 
         $('#new_selection').append(new_option);
@@ -95,10 +93,12 @@ function download(filename, text) {
 
       function add_key() {
         var new_key_no = parseInt($('#key_num').val());
-        var new_key = "<input type='text' id='key_" + new_key_no + "'placeholder='key_" + new_key_no + "'>";
+        var new_key = "<input type='text' id='key_" + new_key_no + "'placeholder='key " + new_key_no + "'>";
+        var new_value = "<input type='text' id='value_" + new_key_no + "'placeholder='value " + new_key_no + "'>";
         var new_br = "<br id='br_key_" + new_key_no + "'>";
 
         $('#new_keys').append(new_key);
+        $('#new_keys').append(new_value);
         $('#new_keys').append(new_br);
 
         $('#key_num').val(new_key_no + 1);
@@ -109,6 +109,7 @@ function download(filename, text) {
 
         if (last_key_no >= 0) {
           $('#key_' + last_key_no).remove();
+          $('#value_' + last_key_no).remove();
           $('#br_key_' + last_key_no).remove();
           $('#key_num').val(last_key_no);
         }
@@ -170,7 +171,8 @@ function download(filename, text) {
       var keyLine = `  "key": [\n`;
       for (var i = 0; i < key_num; i++) {
         var key = $(`#key_${i}`).val();
-        keyLine += `    "${key}"`;
+        var value = $(`#value_${i}`).val();
+        keyLine += `    ["${key}", "${value}"]`;
         if(i != key_num - 1){
           keyLine += `,`;
         }
