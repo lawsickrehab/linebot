@@ -1,15 +1,15 @@
 {
-  "id": 8,
-  "question": "有沒有攜帶兇器？",
+  "id": 10,
+  "question": "被行為人之年齡小於 14 歲？",
   "options": [
     "是",
     "否"
   ],
   "judge": [
-    9,
-    9
+    11,
+    11
   ],
-  "exception": 9,
+  "exception": 11,
   "key": [
     "Key1",
     "Key2"
