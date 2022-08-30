@@ -9,7 +9,6 @@ def react(lst,nlp):
         ans={"test":"dictionary returned by nlp api, save it!"}
         nlp.writejson(ans)
     nlp=nlp.readjson()
-    print(lst,nlp)
     init=1
     for i,ans in enumerate(lst):
         if not i:
@@ -17,12 +16,10 @@ def react(lst,nlp):
         nxt=dfs(init,nlp)
         assert nxt>0
         nlp[nxt]=ans
-
+    print(lst,nlp)
     ask=dfs(init,nlp)
-        
     if ask<0:
         return Message().text("tmp.txt")
-        
     return Content(ask).ask()
 
     ret=Message()
@@ -49,12 +46,14 @@ def dfs(cur,path):
     if cur not in path.keys():
         return cur
     q=Question(cur)
-    ans=path[cur]
-    nxt=q.judge[ans]
-    print(cur,nxt)
+    try:
+        ans=q.options.index(path[cur])
+        nxt=q.judge[ans]
+    except ValueError:
+        ans=q.exception
+        nxt=q.exception
     if nxt<0:
         return nxt
-    assert ans<q.size, "answer out of range"
     return dfs(nxt,path)
 
 
