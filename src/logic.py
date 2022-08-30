@@ -2,7 +2,10 @@ from message import Message
 from session import Session
 from question import Question
 from content import Content
+from definition import Definition
 from nlp import NLP
+
+from content import ASK_DEF,UNDERSTAND,UNUNDERSTAND
 
 def react(lst,nlp):
     if len(lst)==1:
@@ -11,17 +14,25 @@ def react(lst,nlp):
         nlp.writejson(ans)
     nlp=nlp.readjson()
     init=1
+    print(lst,nlp)
     for i,ans in enumerate(lst):
         if not i:
             continue
+        if ans==UNDERSTAND or ans==UNUNDERSTAND or ans[0:len(ASK_DEF)]==ASK_DEF:
+            if ans==UNDERSTAND or ans==UNUNDERSTAND:
+                continue
+            if ans[0:len(ASK_DEF)]==ASK_DEF and i==len(lst)-1:
+                return Content().define(ans[len(ASK_DEF):])
+            continue
         nxt=dfs(init,nlp)
-        return Message().text("closed.txt")
+        if nxt<0:
+            return Message().text("closed.txt")
         nlp[nxt]=ans
     print(lst,nlp)
     ask=dfs(init,nlp)
     if ask<0:
         return Message().text("terminate.txt")
-    return Content(ask).ask()
+    return Content().ask(ask,definition=True)
 
     ret=Message()
     return ret.text("tmp.txt")
@@ -47,6 +58,8 @@ def dfs(cur,path):
     if cur not in path.keys():
         return cur
     q=Question(cur)
+    if path[cur][0:len(ASK_DEF)]==ASK_DEF:
+        return cur
     try:
         ans=q.options.index(path[cur])
         nxt=q.judge[ans]
