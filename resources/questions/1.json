@@ -13,7 +13,9 @@
   ],
   "exception": 2,
   "key": [
-    "Key1",
-    "Key2"
+    [
+        "<FUNC_negation>.*?</FUNC_negation>(?:<MODIFIER>.*?</MODIFIER>)?<ENTITY_noun>人性</ENTITY_noun>",
+        "negativeMatch"
+    ]
   ]
 }
