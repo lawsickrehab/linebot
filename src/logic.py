@@ -2,11 +2,12 @@ from message import Message
 from session import Session
 from question import Question
 from content import Content
+from nlp import NLP
 
 def react(lst,nlp):
     if len(lst)==1:
-        # call nlp api by lst[0]
-        ans={"test":"dictionary returned by nlp api, save it!"}
+        ans=NLP().parse(lst[0],[])
+        print(ans)
         nlp.writejson(ans)
     nlp=nlp.readjson()
     init=1
@@ -14,12 +15,12 @@ def react(lst,nlp):
         if not i:
             continue
         nxt=dfs(init,nlp)
-        assert nxt>0
+        return Message().text("closed.txt")
         nlp[nxt]=ans
     print(lst,nlp)
     ask=dfs(init,nlp)
     if ask<0:
-        return Message().text("tmp.txt")
+        return Message().text("terminate.txt")
     return Content(ask).ask()
 
     ret=Message()
