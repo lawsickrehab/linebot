@@ -10,19 +10,11 @@ from content import ASK_DEF,UNDERSTAND,UNUNDERSTAND
 def react(lst,nlp):
     if len(lst)==1:
         ans=NLP().parse(lst[0],[])
-        print(ans)
         nlp.writejson(ans)
     nlp=nlp.readjson()
     init=1
-    print(lst,nlp)
     for i,ans in enumerate(lst):
         if not i:
-            continue
-        if ans==UNDERSTAND or ans==UNUNDERSTAND or ans[0:len(ASK_DEF)]==ASK_DEF:
-            if ans==UNDERSTAND or ans==UNUNDERSTAND:
-                continue
-            if ans[0:len(ASK_DEF)]==ASK_DEF and i==len(lst)-1:
-                return Content().define(ans[len(ASK_DEF):])
             continue
         nxt=dfs(init,nlp)
         if nxt<0:
@@ -33,26 +25,6 @@ def react(lst,nlp):
     if ask<0:
         return Message().text("terminate.txt")
     return Content().ask(ask,definition=True)
-
-    ret=Message()
-    return ret.text("tmp.txt")
-    
-    print("action histroy: ",lst)
-    if len(lst) == 1:
-        return ret.flexqr('message5.json', 'tf2.json')
-    elif len(lst) == 2:
-        return ret.flexqr('message6.json', 'tf2.json')
-    elif len(lst) == 3:
-        return ret.flexqr('message7.json', 'tf2.json')
-    elif len(lst) == 4:    
-        return ret.flexqr('message8.json', 'tf2.json')
-    elif len(lst) == 5:
-        return ret.flex('message100.json')
-    # return ret.textqr('test message','tf2.json')
-    # return ret.text('test message')
-    # return ret.flexqr('message8.json','tf2.json')
-    return ret.text('')
-
 
 def dfs(cur,path):
     if cur not in path.keys():
@@ -69,7 +41,6 @@ def dfs(cur,path):
     if nxt<0:
         return nxt
     return dfs(nxt,path)
-
 
 def welcome():
     ret=Message()

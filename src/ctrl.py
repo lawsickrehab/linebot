@@ -1,6 +1,8 @@
 from session import Session
 from message import Message
 from logic import react,welcome
+from content import Content
+from content import ASK_DEF,UNDERSTAND,UNUNDERSTAND
 
 def txtio(event):
     uid=event.source.user_id
@@ -20,6 +22,10 @@ def txtio(event):
             return ret.text("History empty!")
         msg='\n'.join(hist)
         return ret.text(msg)
+    elif txt[:len(ASK_DEF)]==ASK_DEF:
+        return Content().define(txt[len(ASK_DEF):])
+    elif txt==UNDERSTAND or txt==UNUNDERSTAND:
+        pass
     else:
         session.push_back(txt)
 
