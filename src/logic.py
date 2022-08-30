@@ -10,8 +10,20 @@ def react(lst,nlp):
         nlp.writejson(ans)
     nlp=nlp.readjson()
     print(lst,nlp)
+    init=1
+    for i,ans in enumerate(lst):
+        if not i:
+            continue
+        nxt=dfs(init,nlp)
+        assert nxt>0
+        nlp[nxt]=ans
 
-    return dfs(1,nlp)
+    ask=dfs(init,nlp)
+        
+    if ask<0:
+        return Message().text("tmp.txt")
+        
+    return Content(ask).ask()
 
     ret=Message()
     return ret.text("tmp.txt")
@@ -32,24 +44,18 @@ def react(lst,nlp):
     # return ret.flexqr('message8.json','tf2.json')
     return ret.text('')
 
+
 def dfs(cur,path):
-    path={
-        1:0,
-        3:0,
-        4:1,
-        8:0
-    }
     if cur not in path.keys():
-        return Content(cur).ask()
-    if path[cur]<0:
-        print("dfs finished, got negtive answer.")
-        ret=Message()
-        return ret.text("tmp.text")
-    print(cur)
+        return cur
     q=Question(cur)
-    assert path[cur]<q.size, "answer out of range"
-    print("question",cur,"answered, moved on next question:", q.judge[path[cur]])
-    return dfs(q.judge[path[cur]],path)
+    ans=path[cur]
+    nxt=q.judge[ans]
+    print(cur,nxt)
+    if nxt<0:
+        return nxt
+    assert ans<q.size, "answer out of range"
+    return dfs(nxt,path)
 
 
 def welcome():
