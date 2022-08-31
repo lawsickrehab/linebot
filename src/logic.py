@@ -9,9 +9,13 @@ from content import ASK_DEF,UNDERSTAND,UNUNDERSTAND
 
 init=1
 
+
 def react(lst,nlp):
     ans=gen(lst,nlp)
-    print(lst,ans)
+    for k in ans.keys():
+        if k<0:
+            return Message().text("closed.txt")
+    print(lst,ans,sep='\n')
     ask=dfs(init,ans)
     if ask<0:
         return Message().text("ans.txt")
@@ -26,11 +30,8 @@ def gen(lst,nlp):
         if not i:
             continue
         nxt=dfs(init,ans)
-        assert nxt>0
         ans[nxt]=rep
     return ans
-
-    
 
 def dfs(cur,path):
     if cur not in path.keys():
