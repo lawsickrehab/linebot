@@ -12,12 +12,14 @@ def txtio(event):
     if txt=='刪光光':
         session.clear()
         ret=Message()
-        return ret.text("History deleted!")
+        return ret.text("歷史紀錄已刪除")
     elif txt=='幫助':
         return welcome() 
     elif txt=='歷史紀錄':
         hist=session.readcsv()
         ans=gen(hist,nlp)
+        if not ans:
+            return Message().text("您沒有任何歷史紀錄")
         return Content().history(ans)
         ret=Message()
         hist=session.readcsv()

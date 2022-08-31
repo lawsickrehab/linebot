@@ -2,7 +2,7 @@ from question import Question
 from definition import Definition
 from linebot.models import * 
 
-ASK_DEF="Ask for definition: "
+ASK_DEF="請問什麼是"
 UNDERSTAND="懂"
 UNUNDERSTAND="不懂"
 class Content:
@@ -16,15 +16,14 @@ class Content:
         if definition:
             for vol,df in self.dic.dic.items():
                 if vol in self.q.question:
-                    print(self.q.question,"in")
-                    options.extend([self.button("What is "+vol+"?",ASK_DEF+vol)])
+                    options.extend([self.button("什麼是"+vol+"？",ASK_DEF+vol)])
         text_message=TextSendMessage(text=self.q.question,
             quick_reply=QuickReply(items=options))
         return text_message
 
     def define(self,key):
-        return TextSendMessage(text=self.dic.search(key)+"懂？",
-            quick_reply=QuickReply(items=[self.button(UNDERSTAND,UNDERSTAND),self.button(UNUNDERSTAND,UNUNDERSTAND)]))
+        return TextSendMessage(text=self.dic.search(key)+"",
+            quick_reply=QuickReply(items=[self.button(UNDERSTAND,UNDERSTAND)]))
 
     def button(self,lbl,txt):
         return QuickReplyButton(action=MessageAction(label=lbl,text=txt))

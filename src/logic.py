@@ -48,7 +48,7 @@ def dfs(cur,path):
 
 def welcome():
     ret=Message()
-    msg="""您好，這裡是溫暖而富有人性的證據收集器"""
+    msg="""您好，這裡是溫暖而富有人性的證據收集器。\n\n請問您遇到了什麼困難，說出來說不定我們能夠幫助您喔～"""
     return ret.text(msg)
     return ret.textqr(msg,'tf2.json')
 
