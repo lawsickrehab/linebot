@@ -1,4 +1,5 @@
 import os
+import time
 
 from flask import Flask, request, abort
 
@@ -35,6 +36,7 @@ def index():
 @app.route("/callback", methods=['POST'])
 def callback():
     print()
+    stime=time.time()
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
@@ -49,6 +51,7 @@ def callback():
         print("Invalid signature. Please check your channel access token/channel secret.")
         abort(400)
 
+    print("Replied in",time.time()-stime,"seconds.")
     return 'OK'
 
 if __name__ == "__main__":

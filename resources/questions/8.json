@@ -1,0 +1,18 @@
+{
+  "id": 8,
+  "question": "有攜帶兇器對吧？",
+  "options": [
+    "是",
+    "否"
+  ],
+  "judge": [
+    9,
+    9
+  ],
+  "short":"兇器",
+  "exception": 9,
+  "key": [
+    "Key1",
+    "Key2"
+  ]
+}

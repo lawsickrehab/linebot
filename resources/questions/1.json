@@ -1,0 +1,20 @@
+{
+  "id": 1,
+  "question": "請問行為人是否有以強爆、脅迫、恐嚇、催眠術或其他違反您意願的方法為之？",
+  "options": [
+    "有",
+    "沒有"
+  ],
+  "judge": [
+    2,
+    2
+  ],
+  "exception": 2,
+  "short": "違反意願",
+  "key": [
+    [
+        "<FUNC_negation>.*?</FUNC_negation>(?:<MODIFIER>.*?</MODIFIER>)?<ENTITY_noun>人性</ENTITY_noun>",
+        "negativeMatch"
+    ]
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": 4,
+  "question": "那是以藥劑犯之嗎？",
+  "options": [
+    "是",
+    "否"
+  ],
+  "judge": [
+    5,
+    5
+  ],
+  "short":"使用藥劑",
+  "exception": 5,
+  "key": [
+    "Key1",
+    "Key2"
+  ]
+}

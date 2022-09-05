@@ -1,28 +1,55 @@
 from message import Message
+from session import Session
+from question import Question
+from content import Content
+from definition import Definition
+from nlp import NLP
 
-def react(lst):
-    ret=Message()
-    return ret.text("tmp.txt")
-    
-    print("action histroy: ",lst)
-    if len(lst) == 1:
-        return ret.flexqr('message5.json', 'tf2.json')
-    elif len(lst) == 2:
-        return ret.flexqr('message6.json', 'tf2.json')
-    elif len(lst) == 3:
-        return ret.flexqr('message7.json', 'tf2.json')
-    elif len(lst) == 4:    
-        return ret.flexqr('message8.json', 'tf2.json')
-    elif len(lst) == 5:
-        return ret.flex('message100.json')
-    # return ret.textqr('test message','tf2.json')
-    # return ret.text('test message')
-    # return ret.flexqr('message8.json','tf2.json')
-    return ret.text('')
+from content import ASK_DEF,UNDERSTAND,UNUNDERSTAND
+
+init=1
+
+
+def react(lst,nlp):
+    ans=gen(lst,nlp)
+    for k in ans.keys():
+        if k<0:
+            return Message().text("closed.txt")
+    print(lst,ans,sep='\n')
+    ask=dfs(init,ans)
+    if ask<0:
+        return Message().text("ans.txt")
+    return Content().ask(ask,definition=True)
+
+def gen(lst,nlp):
+    if len(lst)==1:
+        ans=NLP().parse(lst[0],[])
+        nlp.writejson(ans)
+    ans=nlp.readjson()
+    for i,rep in enumerate(lst):
+        if not i:
+            continue
+        nxt=dfs(init,ans)
+        ans[nxt]=rep
+    return ans
+
+def dfs(cur,path):
+    if cur not in path.keys():
+        return cur
+    q=Question(cur)
+    try:
+        ans=q.options.index(path[cur])
+        nxt=q.judge[ans]
+    except ValueError:
+        ans=q.exception
+        nxt=q.exception
+    if nxt<0:
+        return nxt
+    return dfs(nxt,path)
 
 def welcome():
     ret=Message()
-    msg="""您好，這裡是溫暖而富有人性的證據收集器"""
+    msg="""您好，這裡是溫暖而富有人性的證據收集器。\n\n請問您遇到了什麼困難，說出來說不定我們能夠幫助您喔～"""
     return ret.text(msg)
     return ret.textqr(msg,'tf2.json')
 
